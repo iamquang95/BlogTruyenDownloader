@@ -7,7 +7,11 @@ from BlogTruyenDownloader.items import ComicItem
 class ComicSpider(scrapy.Spider):
     name = "comic"
     allowed_domains = ["blogtruyen.com"]
-    start_urls = ["http://blogtruyen.com/truyen/tuy-quyen-iii"]
+    with open("link_comic.txt", "r") as f:
+        try:
+            start_urls = f.read().split()
+        except Exception, ValueError:
+            start_urls = []
 
     def parse(self, response):
         comic_name = response.xpath('//div[@id="breadcrumbs"]')
